@@ -1,18 +1,14 @@
 package Code;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
 
-public class Apple extends JPanel{
-    public int x, y;
-    private Graphics g;
+import java.awt.*;
+
+public class Apple extends GameOBJ{
     public Apple(){
-        this.x = (int)(Math.random()*481);
-        this.y = (int)(Math.random()*481);
+        super();
     }
-    public void paintComponent() {
-        super.paintComponent(g);
-        g.setColor(Color.red);
+    @Override
+    public void draw(Graphics g) {
         g.fillRect(x, y, 10, 10);
+        g.setColor(Color.RED);
     }
 }

@@ -1,23 +1,42 @@
 package Code;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class Screen{
-    private JFrame mainFrame;
-    private JPanel mainPanel;
+public class Screen extends Frame{
+    public static void main(String[] args) {new Screen();}
+    public GameOBJ[] arr;
+    private int figureCount;
     public Screen(){
-        mainFrame = new JFrame("Snake Game");
-        mainFrame.setSize(500, 500);
-        mainFrame.setLayout(null);
-        mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setSize(500, 500);
+        this.setVisible(true);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
 
-        mainPanel = new JPanel();
-        mainPanel.setLayout(null);
-        Apple myApple = new Apple();
-        myApple.paintComponent();
-        mainFrame.add(myApple);
-        mainFrame.add(mainPanel);
-        mainFrame.setVisible(true);
+        arr = new GameOBJ[1000];
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                arr[figureCount++] = getObj();
+                repaint();
+            }
+        });
+        repaint();
     }
-
+    public GameOBJ getObj(){
+        return new Apple();
+    }
+    public void paint(Graphics g){
+        for(int i = 0; i < arr.length; ++i){
+            arr[i].draw(g);
+        }
+    }
 }
