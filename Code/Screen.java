@@ -12,8 +12,9 @@ public class Screen extends Frame{
     public Screen(){
         //Screen Setup
         this.setSize(500, 500);
-        unit = (this.getX()*this.getY())/10;
+        unit = (500*500)/10;
         this.setVisible(true);
+        this.setBackground(Color.BLACK);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
