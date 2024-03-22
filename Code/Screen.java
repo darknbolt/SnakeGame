@@ -7,11 +7,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Screen extends Frame{
+    final int unit;
     public static void main(String[] args) {new Screen();}
-    public GameOBJ[] arr;
-    private int figureCount;
     public Screen(){
+        //Screen Setup
         this.setSize(500, 500);
+        unit = (this.getX()*this.getY())/10;
         this.setVisible(true);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -19,24 +20,16 @@ public class Screen extends Frame{
                 System.exit(0);
             }
         });
-
-        arr = new GameOBJ[1000];
-
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                arr[figureCount++] = getObj();
-                repaint();
-            }
-        });
-        repaint();
     }
     public GameOBJ getObj(){
         return new Apple();
     }
+    public GameOBJ getObjSnake(){
+        return new Snake(unit);
+    }
     public void paint(Graphics g){
-        for(int i = 0; i < arr.length; ++i){
-            arr[i].draw(g);
-        }
+        g.setColor(Color.RED);
+        getObj().draw(g);
+        getObjSnake().draw(g);
     }
 }
