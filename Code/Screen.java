@@ -1,9 +1,6 @@
 package Code;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
-import java.util.TimerTask;
 
 public class Screen extends Frame{
     final int unit;
@@ -25,15 +22,6 @@ public class Screen extends Frame{
                 System.exit(0);
             }
         });
-        Timer test = new Timer(75, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-    }
-    public Apple getApple(){
-        return new Apple();
     }
     public void paint(Graphics g){
         g.setColor(Color.RED);
