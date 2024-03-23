@@ -1,10 +1,8 @@
 package Code;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.util.TimerTask;
 
 public class Screen extends Frame{
     final int unit;
@@ -21,16 +19,47 @@ public class Screen extends Frame{
                 System.exit(0);
             }
         });
+        Timer test = new Timer(75, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
     public GameOBJ getObj(){
         return new Apple();
     }
-    public GameOBJ getObjSnake(){
+    public GameOBJ Move(Snake snake){
+        char direction = 'w';
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyChar() == 'a'){
+
+                }
+            }
+        });
+        return snake;
+    }
+    public Snake getObjSnake(){
         return new Snake(unit);
     }
     public void paint(Graphics g){
         g.setColor(Color.RED);
         getObj().draw(g);
-        getObjSnake().draw(g);
+        Snake mySnake = getObjSnake();
+        mySnake.draw(g);
+
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyChar() == 'w'){
+                    mySnake.up();
+                    repaint();
+                }
+            }
+        });
     }
 }

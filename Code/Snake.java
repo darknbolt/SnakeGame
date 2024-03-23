@@ -27,6 +27,25 @@ public class Snake extends GameOBJ{
             }
             g.drawRect(body_X_Coordinates[i], body_Y_Coordinates[i], 10, 10);
         }
-
+    }
+    public void up(){
+        for(int i = 0; i < body_Y_Coordinates.length; ++i){
+            body_Y_Coordinates[i] += 10;
+        }
+    }
+    public void down(){
+        for(int i = 0; i < body_Y_Coordinates.length; ++i){
+            body_Y_Coordinates[i] -= 10;
+        }
+    }
+    public void left(){
+        for(int i = 0; i < body_X_Coordinates.length; ++i){
+            body_X_Coordinates[i] -= 10;
+        }
+    }
+    public void right(){
+        for(int i = 0; i < body_X_Coordinates.length; ++i){
+            body_X_Coordinates[i] += 10;
+        }
     }
 }
