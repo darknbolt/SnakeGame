@@ -1,5 +1,6 @@
 package Code;
 import java.awt.*;
+import java.util.Arrays;
 
 public class Snake extends GameOBJ{
     public int bodyNumber;
@@ -28,23 +29,37 @@ public class Snake extends GameOBJ{
             g.drawRect(body_X_Coordinates[i], body_Y_Coordinates[i], 10, 10);
         }
     }
-    public void up(){
-        for(int i = 0; i < body_Y_Coordinates.length; ++i){
-            body_Y_Coordinates[i] += 10;
+    public String getXCoordinates(){
+        String cdr = "";
+        for(int i = 0; i < bodyNumber; ++i){
+            cdr += body_X_Coordinates[i] + " ";
         }
+        return cdr;
     }
-    public void down(){
-        for(int i = 0; i < body_Y_Coordinates.length; ++i){
+    public String getYCoordinates(){
+        String cdr = "";
+        for(int i = 0; i < bodyNumber; ++i){
+            cdr += body_Y_Coordinates[i] + " ";
+        }
+        return cdr;
+    }
+    public void up(){
+        for(int i = 0; i < bodyNumber; ++i){
             body_Y_Coordinates[i] -= 10;
         }
     }
+    public void down(){
+        for(int i = 0; i < bodyNumber; ++i){
+            body_Y_Coordinates[i] += 10;
+        }
+    }
     public void left(){
-        for(int i = 0; i < body_X_Coordinates.length; ++i){
+        for(int i = 0; i < bodyNumber; ++i){
             body_X_Coordinates[i] -= 10;
         }
     }
     public void right(){
-        for(int i = 0; i < body_X_Coordinates.length; ++i){
+        for(int i = 0; i < bodyNumber; ++i){
             body_X_Coordinates[i] += 10;
         }
     }
