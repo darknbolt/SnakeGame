@@ -47,6 +47,7 @@ public class Screen extends Frame{
                         break;
                 }
                 isThereCollision();
+                mySnake.checkDeath();
                 repaint();
             }
         });

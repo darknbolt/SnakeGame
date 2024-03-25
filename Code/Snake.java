@@ -75,8 +75,17 @@ public class Snake extends GameOBJ{
         }
         return cdr;
     }
+    public void checkDeath(){
+        if((body_X_Coordinates[0] == 0 || body_X_Coordinates[0] == 490 ||
+                (body_Y_Coordinates[0] == 20 || body_Y_Coordinates[0] == 490))){
+            bodyNumber = 3;
+            body_X_Coordinates[0] = 200;
+            body_Y_Coordinates[0] = 200;
+            direction = "Left";
+        }
+    }
     public void up(){
-        if(body_Y_Coordinates[0] == 30){
+        if(body_Y_Coordinates[0] == 10){
             return;
         }
         if(previousDirection.equals("Down")){
@@ -93,7 +102,7 @@ public class Snake extends GameOBJ{
         }
     }
     public void down(){
-        if(body_Y_Coordinates[0] == 480){
+        if(body_Y_Coordinates[0] == 500){
             return;
         }
         if(previousDirection.equals("Up")){
@@ -110,7 +119,7 @@ public class Snake extends GameOBJ{
         }
     }
     public void left(){
-        if(body_X_Coordinates[0] == 10){
+        if(body_X_Coordinates[0] == -10){
             return;
         }
         if(previousDirection.equals("Right")){
@@ -127,7 +136,7 @@ public class Snake extends GameOBJ{
         }
     }
     public void right(){
-        if(body_X_Coordinates[0] == 480){
+        if(body_X_Coordinates[0] == 500){
             return;
         }
         if(previousDirection.equals("Left")){
