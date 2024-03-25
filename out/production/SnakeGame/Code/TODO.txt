@@ -1,3 +1,6 @@
--Snake Class
--Apple Spawning Mechanism
+-Eating Mechanism
 -Point System
+-Death When moving in opposite direction
+-Death when hitting a wall
+-Death when eating its tail
+-Apple new spawn after one eaten
