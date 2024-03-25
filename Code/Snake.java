@@ -3,13 +3,14 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class Snake extends GameOBJ{
-    public int bodyNumber;
+    private int bodyNumber;
     public int maxBodyNumber;
-    public int[] body_X_Coordinates, body_Y_Coordinates;
-    public String direction;
+    private int[] body_X_Coordinates, body_Y_Coordinates;
+    public String direction, previousDirection;
     public Snake(int maxBodyNumber){
         super(); bodyNumber = 6;
         this.maxBodyNumber = maxBodyNumber;
+        previousDirection = " ";
         body_X_Coordinates = new int[maxBodyNumber];
         body_Y_Coordinates = new int[maxBodyNumber];
         for(int i = 0, adder = 210; i < bodyNumber; ++i, adder += 10){
@@ -21,19 +22,34 @@ public class Snake extends GameOBJ{
     public String getDirection(){
         return direction;
     }
+    public void addBodyNumber(){
+        bodyNumber += 1;
+        body_X_Coordinates[bodyNumber-1] = body_X_Coordinates[bodyNumber-3] > body_X_Coordinates[bodyNumber-2] ? body_X_Coordinates[bodyNumber-3] + 10 : body_X_Coordinates[bodyNumber-2] - 10;
+        body_Y_Coordinates[bodyNumber-1] = body_Y_Coordinates[bodyNumber-3] > body_Y_Coordinates[bodyNumber-2] ? body_Y_Coordinates[bodyNumber-3] - 10 : body_Y_Coordinates[bodyNumber-2] + 10;
+    }
     public void setDirection(char button){
         if(button == 'a'){
+            previousDirection = direction;
             direction = "Left";
         }else if(button == 's'){
+            previousDirection = direction;
             direction = "Down";
         }else if(button == 'd'){
+            previousDirection = direction;
             direction = "Right";
         }else if(button == 'w'){
+            previousDirection = direction;
             direction = "Up";
         }
     }
-    public int getBody(){
+    public int getBodyNumber(){
         return bodyNumber;
+    }
+    public int getX(){
+        return body_X_Coordinates[0];
+    }
+    public int getY(){
+        return body_Y_Coordinates[0];
     }
     public void draw(Graphics g){
         for(int i = 0; i < bodyNumber; ++i){
@@ -63,17 +79,16 @@ public class Snake extends GameOBJ{
         if(body_Y_Coordinates[0] == 30){
             return;
         }
-        if(body_X_Coordinates[0] == body_X_Coordinates[bodyNumber-1] && body_Y_Coordinates[0] > body_Y_Coordinates[bodyNumber-1]){
+        if(previousDirection.equals("Down")){
+            this.down();
             return;
         }
-        for(int i = 0; i < bodyNumber; ++i){
-            if(i == 0 || body_X_Coordinates[0] == body_X_Coordinates[i]) {
+        for(int i = bodyNumber; i >= 0; --i){
+            if(i == 0) {
                 body_Y_Coordinates[i] -= 10;
-            }
-            if(i != 0 && body_X_Coordinates[0] < body_X_Coordinates[i]){
-                body_X_Coordinates[i] -= 10;
-            }else if(i != 0 && body_X_Coordinates[0] > body_X_Coordinates[i]){
-                body_X_Coordinates[i] += 10;
+            }else {
+                body_Y_Coordinates[i] = body_Y_Coordinates[i - 1];
+                body_X_Coordinates[i] = body_X_Coordinates[i - 1];
             }
         }
     }
@@ -81,17 +96,16 @@ public class Snake extends GameOBJ{
         if(body_Y_Coordinates[0] == 480){
             return;
         }
-        if(body_X_Coordinates[0] == body_X_Coordinates[bodyNumber-1] && body_Y_Coordinates[0] < body_Y_Coordinates[bodyNumber-1]){
+        if(previousDirection.equals("Up")){
+            this.up();
             return;
         }
-        for(int i = 0; i < bodyNumber; ++i){
-            if(i == 0 || body_X_Coordinates[0] == body_X_Coordinates[i]) {
+        for(int i = bodyNumber; i >= 0; --i){
+            if(i == 0) {
                 body_Y_Coordinates[i] += 10;
-            }
-            if(i != 0 && body_X_Coordinates[0] < body_X_Coordinates[i]){
-                body_X_Coordinates[i] -= 10;
-            }else if(i != 0 && body_X_Coordinates[0] > body_X_Coordinates[i]){
-                body_X_Coordinates[i] += 10;
+            }else{
+                body_Y_Coordinates[i] = body_Y_Coordinates[i-1];
+                body_X_Coordinates[i] = body_X_Coordinates[i-1];
             }
         }
     }
@@ -99,17 +113,16 @@ public class Snake extends GameOBJ{
         if(body_X_Coordinates[0] == 10){
             return;
         }
-        if(body_Y_Coordinates[0] == body_Y_Coordinates[bodyNumber-1] && body_X_Coordinates[0] > body_X_Coordinates[bodyNumber-1]){
+        if(previousDirection.equals("Right")){
+            this.right();
             return;
         }
-        for(int i = 0; i < bodyNumber; ++i){
-            if(i == 0 || body_Y_Coordinates[0] == body_Y_Coordinates[i]) {
+        for(int i = bodyNumber; i >= 0; --i){
+            if(i == 0) {
                 body_X_Coordinates[i] -= 10;
-            }
-            if(i != 0 && body_Y_Coordinates[0] < body_Y_Coordinates[i]){
-                body_Y_Coordinates[i] -= 10;
-            }else if(i != 0 && body_Y_Coordinates[0] > body_Y_Coordinates[i]){
-                body_Y_Coordinates[i] += 10;
+            }else{
+                body_X_Coordinates[i] = body_X_Coordinates[i-1];
+                body_Y_Coordinates[i] = body_Y_Coordinates[i-1];
             }
         }
     }
@@ -117,17 +130,16 @@ public class Snake extends GameOBJ{
         if(body_X_Coordinates[0] == 480){
             return;
         }
-        if(body_Y_Coordinates[0] == body_Y_Coordinates[bodyNumber-1] && body_X_Coordinates[0] < body_X_Coordinates[bodyNumber-1]){
+        if(previousDirection.equals("Left")){
+            this.left();
             return;
         }
-        for(int i = 0; i < bodyNumber; ++i){
-            if(i == 0 || body_Y_Coordinates[i-1] == body_Y_Coordinates[i]) {
+        for(int i = bodyNumber; i >= 0; --i){
+            if(i == 0) {
                 body_X_Coordinates[i] += 10;
-            }
-            if(i != 0 && body_Y_Coordinates[0] < body_Y_Coordinates[i]){
-                body_Y_Coordinates[i] -= 10;
-            }else if(i != 0 && body_Y_Coordinates[0] > body_Y_Coordinates[i]){
-                body_Y_Coordinates[i] += 10;
+            }else{
+                body_Y_Coordinates[i] = body_Y_Coordinates[i-1];
+                body_X_Coordinates[i] = body_X_Coordinates[i-1];
             }
         }
     }

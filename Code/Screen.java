@@ -29,7 +29,7 @@ public class Screen extends Frame{
         });
 
         //Timer Setup
-        myTimer = new Timer(75, new ActionListener() {
+        myTimer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch(mySnake.getDirection()){
@@ -46,6 +46,7 @@ public class Screen extends Frame{
                         mySnake.down();
                         break;
                 }
+                isThereCollision();
                 repaint();
             }
         });
@@ -57,6 +58,12 @@ public class Screen extends Frame{
                 mySnake.setDirection(e.getKeyChar());
             }
         });
+    }
+    public void isThereCollision(){
+        if (myApple.x == mySnake.getX() && myApple.y == mySnake.getY()){
+            mySnake.addBodyNumber();
+            myApple = new Apple();
+        }
     }
     public void paint(Graphics g){
         g.setColor(Color.RED);
