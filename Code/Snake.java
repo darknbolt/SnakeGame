@@ -23,9 +23,13 @@ public class Snake extends GameOBJ{
         return direction;
     }
     public void addBodyNumber(){
+        if(maxBodyNumber < bodyNumber) maxBodyNumber = bodyNumber;
         bodyNumber += 1;
-        body_X_Coordinates[bodyNumber-1] = body_X_Coordinates[bodyNumber-3] > body_X_Coordinates[bodyNumber-2] ? body_X_Coordinates[bodyNumber-3] + 10 : body_X_Coordinates[bodyNumber-2] - 10;
-        body_Y_Coordinates[bodyNumber-1] = body_Y_Coordinates[bodyNumber-3] > body_Y_Coordinates[bodyNumber-2] ? body_Y_Coordinates[bodyNumber-3] - 10 : body_Y_Coordinates[bodyNumber-2] + 10;
+    }
+    public void selfCollision(){
+        for(int i = bodyNumber-1; i >= 1; --i){
+            if(body_X_Coordinates[0] == body_X_Coordinates[i] && body_Y_Coordinates[0] == body_Y_Coordinates[i])reset();
+        }
     }
     public void setDirection(char button){
         if(button == 'a'){
@@ -77,12 +81,18 @@ public class Snake extends GameOBJ{
     }
     public void checkDeath(){
         if((body_X_Coordinates[0] == 0 || body_X_Coordinates[0] == 490 ||
-                (body_Y_Coordinates[0] == 20 || body_Y_Coordinates[0] == 490))){
-            bodyNumber = 3;
-            body_X_Coordinates[0] = 200;
-            body_Y_Coordinates[0] = 200;
-            direction = "Left";
+                (body_Y_Coordinates[0] == 20 || body_Y_Coordinates[0] == 490))) reset();
+        selfCollision();
+    }
+    private void reset(){
+        bodyNumber = 3;
+        for(int i = bodyNumber; i < maxBodyNumber; ++i){
+            body_X_Coordinates[i] = 0;
+            body_X_Coordinates[i] = 0;
         }
+        body_X_Coordinates[0] = 200;
+        body_Y_Coordinates[0] = 200;
+        direction = "Left";
     }
     public void up(){
         if(body_Y_Coordinates[0] == 10){
@@ -92,7 +102,7 @@ public class Snake extends GameOBJ{
             this.down();
             return;
         }
-        for(int i = bodyNumber; i >= 0; --i){
+        for(int i = bodyNumber-1; i >= 0; --i){
             if(i == 0) {
                 body_Y_Coordinates[i] -= 10;
             }else {

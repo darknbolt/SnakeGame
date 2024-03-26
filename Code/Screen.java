@@ -19,6 +19,7 @@ public class Screen extends Frame{
         //Screen Setup
         this.setTitle("Snake Game");
         this.setSize(500, 500);
+        this.setResizable(false);
         this.setVisible(true);
         this.setBackground(Color.BLACK);
         this.addWindowListener(new WindowAdapter() {
@@ -46,7 +47,7 @@ public class Screen extends Frame{
                         mySnake.down();
                         break;
                 }
-                isThereCollision();
+                isThereAppleCollision();
                 mySnake.checkDeath();
                 repaint();
             }
@@ -60,7 +61,7 @@ public class Screen extends Frame{
             }
         });
     }
-    public void isThereCollision(){
+    public void isThereAppleCollision(){
         if (myApple.x == mySnake.getX() && myApple.y == mySnake.getY()){
             mySnake.addBodyNumber();
             myApple = new Apple();
