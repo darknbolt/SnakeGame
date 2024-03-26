@@ -29,6 +29,7 @@ public class Screen extends Frame{
             }
         });
 
+
         //Timer Setup
         myTimer = new Timer(50, new ActionListener() {
             @Override
